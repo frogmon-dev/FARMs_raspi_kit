@@ -103,8 +103,7 @@ def print_loop():
                     save_sensor_data_to_csv(csvFileName + currentDate + '.csv', sensor_data)
                     print("센서 데이터가 저장되었습니다.")
                 else:
-                    print("sensor_data가 딕셔너리가 아닙니다. 데이터 형식을 확인하세요.")                
-                save_sensor_data_to_csv(csvFileName+currentDate+'.csv', sensor_data)
+                    print("sensor_data가 딕셔너리가 아닙니다. 데이터 형식을 확인하세요.")
         time.sleep(10)
 
 if __name__ == '__main__':
