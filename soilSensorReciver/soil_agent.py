@@ -85,7 +85,7 @@ def print_loop():
                 GLOB.save_sensor_data_to_csv(csvFileName + currentDate + '.csv', sensor_data)                    
                 print("센서 데이터가 저장되었습니다.")
                 
-                GLOB.save_sensor_data_to_csv(mqttUrl, mqttPort, pubTopic, sensor_data)
+                GLOB.mqtt_publish(mqttUrl, mqttPort, pubTopic, sensor_data)
                 print("센서 데이터를 서버로 전송")
                 
         time.sleep(10)
