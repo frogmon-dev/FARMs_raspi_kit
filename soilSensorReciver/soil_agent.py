@@ -12,7 +12,7 @@ modbus_port = '/dev/ttyAMA0'  # 라즈베리 파이에 연결된 Modbus 포트
 client = ModbusSerialClient(port=modbus_port, baudrate=4800, timeout=1)
 
 currentDate = datetime.now().strftime("%Y%m%d")
-csvFileName = '/home/pi/SOILs/bin/csv/soildata_'
+csvFileName = '/home/pi/FARMs_raspi_kit/csv/soildata_'
 
 # 요청 패킷 (7-in-1 센서)
 p7in1_request = [0x01, 0x03, 0x00, 0x00, 0x00, 0x07, 0x04, 0x08]
