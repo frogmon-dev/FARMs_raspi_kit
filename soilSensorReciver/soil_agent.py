@@ -86,8 +86,8 @@ def parse_sensor_data(data):
         "phosphorus": phosphorus,
         "potassium": potassium
     }
-
-    return json.dumps(sensor_data, indent=2)
+    return sensor_data
+    #return json.dumps(sensor_data, indent=2)
 
 # 데이터 출력 루프
 def print_loop():
