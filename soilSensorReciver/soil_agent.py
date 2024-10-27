@@ -19,7 +19,7 @@ deviceId = GLOB.get_ini_value(setupFileName, 'AGENT', 'id', 'test')
 
 mqttUrl  = GLOB.get_ini_value(setupFileName, 'MQTT', 'url', 'frogmon.synology.me')
 mqttPort = int(GLOB.get_ini_value(setupFileName, 'MQTT', 'port', '8359'))
-pubTopic = GLOB.get_ini_value(setupFileName, 'MQTT', 'pub_topic', 'test')+userId+'/'+deviceId+'/'
+pubTopic = GLOB.get_ini_value(setupFileName, 'MQTT', 'pub_topic', 'test')+userId+'/'+deviceId
 
 
 # 요청 패킷 (7-in-1 센서)
