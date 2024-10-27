@@ -18,7 +18,7 @@ userId = GLOB.get_ini_value(setupFileName, 'SETUP', 'user_id', 'test')
 deviceId = GLOB.get_ini_value(setupFileName, 'AGENT', 'id', 'test')
 
 mqttUrl  = GLOB.get_ini_value(setupFileName, 'MQTT', 'url', 'frogmon.synology.me')
-mqttPort = GLOB.get_ini_value(setupFileName, 'MQTT', 'port', '8359')
+mqttPort = int(GLOB.get_ini_value(setupFileName, 'MQTT', 'port', '8359'))
 pubTopic = GLOB.get_ini_value(setupFileName, 'MQTT', 'pub_topic', 'test')
 
 
