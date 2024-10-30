@@ -5,14 +5,25 @@ import json
 import csv
 import configparser
 import paho.mqtt.client as mqtt
-
-
-#from unidecode       import unidecode
 from datetime import datetime, timedelta
+
+from frogmon.uCommon   import COM
 
 class GLOB:
     def __init__(self):
         print('init')
+        
+    def setUpdateTime():
+        COM.gNOW  = datetime.now()
+        COM.gYYYY = COM.gNOW.strftime('%Y')
+        COM.gMM   = COM.gNOW.strftime('%m')
+        COM.gDD   = COM.gNOW.strftime('%d')
+        COM.gHH   = COM.gNOW.strftime('%H')
+        COM.gNN   = COM.gNOW.strftime('%M')
+        COM.gSS   = COM.gNOW.strftime('%S')
+        COM.gstrYMD = COM.gNOW.strftime('%Y%m%d')
+        COM.gstrYMDHMS = COM.gNOW.strftime('%Y%m%d%H%M%S')
+        COM.gstrDATE = COM.gNOW.strftime('%Y-%m-%d %H:%M:%S')
 
     def get_ini_value(filename, section, key, defult):
         """
