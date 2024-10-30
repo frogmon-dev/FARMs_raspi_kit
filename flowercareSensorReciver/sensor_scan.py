@@ -8,7 +8,7 @@ except :
 	exit()
 
 #프로그램 시작
-from bluepy.btle import Scanner, DefaultDelegate, UUID, Peripheral
+from bluepy.btle import Scanner, DefaultDelegate
 from frogmon.uGlobal   import GLOB
 
 configFileNM = '/home/pi/FARMs_raspi_kit/bin/setup.ini'
@@ -53,7 +53,12 @@ class NotifyDelegate(DefaultDelegate):
 # Main starts here
 #############################################
 scanner = Scanner().withDelegate(ScanDelegate())
-devices = scanner.scan(10.0)
+try:
+	devices = scanner.scan(10.0)
+except BTLEDisconnectError:
+    print("Device disconnected, retrying...")
+    devices = scanner.scan(10.0)  # 재시도
+
 cnt = 0
 dev_str=''
 
