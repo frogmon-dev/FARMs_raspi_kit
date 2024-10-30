@@ -54,12 +54,10 @@ class NotifyDelegate(DefaultDelegate):
 #############################################
 scanner = Scanner().withDelegate(ScanDelegate())
 try:
-    devices = scanner.scan(10.0)
-except BTLEDisconnectError: # type: ignore
-    print("Device disconnected, retrying...")
-    devices = scanner.scan(10.0)  # 재시도
-except BTLEManagementError as e: # type: ignore
-    print(f"Management error: {e}")
+	devices = scanner.scan(10.0)
+except Exception as e:
+    print(f"An error occurred: {e}")    
+
 cnt = 0
 dev_str=''
 
