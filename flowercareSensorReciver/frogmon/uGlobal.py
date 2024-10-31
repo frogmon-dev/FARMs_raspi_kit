@@ -125,8 +125,7 @@ class GLOB:
             config.write(configfile)
         
         print(f"Section '{section}' has been recreated in '{filename}'.")        
-
-        import configparser
+        
 
     def set_key_value(filename, section, key, value):
         # configparser 객체 생성
