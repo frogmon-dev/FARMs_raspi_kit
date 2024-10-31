@@ -17,7 +17,6 @@ def get_current_path():
 
 configFileNM = get_current_path() + '/../bin/setup.ini'
 
-
 print('')
 print('--------------------------------------------------')
 print('**  Welcome to FROGMON corp.')
@@ -60,9 +59,9 @@ class NotifyDelegate(DefaultDelegate):
 scanner = Scanner().withDelegate(ScanDelegate())
 try:
 	devices = scanner.scan(10.0)
+ 
 	cnt = 0
 	dev_str=''
-
 	GLOB.recreate_section(configFileNM, 'DEVICE')
 	for dev in devices:
 		#print("Device %s (%s), RSSI=%d dB" % (dev.addr, dev.addrType, dev.rssi))

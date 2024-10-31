@@ -1,16 +1,21 @@
 # uFlowerCare.py
-
+import os
 import json
 
 from collections import OrderedDict
 from time import time, sleep, localtime, strftime
+from unidecode       import unidecode
 
 #프로그램 시작
 from frogmon.uGlobal   import GLOB
 from frogmon.uCommon   import COM
 
-configFileNM = '/home/pi/FARMs_raspi_kit/bin/setup.ini'
-JsonDir = '/home/pi/FARMs_raspi_kit/bin/json/'
+def get_current_path():
+    # 현재 스크립트 파일의 위치를 기준으로 bin 디렉토리 경로를 설정
+    return os.path.dirname(os.path.abspath(__file__))  + '/'
+
+configFileNM = get_current_path() + '../bin/setup.ini'
+JsonDir = get_current_path() + '../bin/json/'
 
 from miflora.miflora_poller import MiFloraPoller, MI_BATTERY, MI_CONDUCTIVITY, MI_LIGHT, MI_MOISTURE, MI_TEMPERATURE
 from btlewrap import available_backends, BluepyBackend, GatttoolBackend, PygattBackend, BluetoothBackendException
@@ -35,8 +40,17 @@ class FLOWERCARE:
         self.flores = OrderedDict([])
         self.confUpdate()
         
+    # Identifier cleanup
+    def clean_identifier(name):
+        clean = name.strip()
+        for this, that in [[' ', '-'], ['ä', 'ae'], ['Ä', 'Ae'], ['ö', 'oe'], ['Ö', 'Oe'], ['ü', 'ue'], ['Ü', 'Ue'], ['ß', 'ss']]:
+            clean = clean.replace(this, that)
+        clean = unidecode(clean)
+        return clean
+	
+        
     def confUpdate(self):
-        self.used_adapter          = GLOB.readConfig(configFileNM, 'FLOWERCARE', 'adapter', 'hci0')
+        self.used_adapter          = GLOB.get_ini_value(configFileNM, 'FLOWERCARE', 'adapter', 'hci0')
         self.reporting_mode        = 'json'
         self.daemon_enabled        = True
         self.default_base_topic    = 'miflora'
@@ -45,14 +59,14 @@ class FLOWERCARE:
         
         
     def chkSensor(self):
-        for [name, mac] in GLOB.itemConfig(configFileNM, 'DEVICE'):
+        for [name, mac] in GLOB.get_ini_value(configFileNM, 'DEVICE'):
             if '@' in name:
                 name_pretty, location_pretty = name.split('@')
             else:
                 name_pretty, location_pretty = name, ''
                 
-            name_clean = GLOB.clean_identifier(name_pretty)
-            location_clean = GLOB.clean_identifier(location_pretty)
+            name_clean = clean_identifier(name_pretty)
+            location_clean = clean_identifier(location_pretty)
 
             flora = dict()
             print('Adding sensor to device list and testing connection ...')
