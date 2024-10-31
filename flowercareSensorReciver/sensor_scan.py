@@ -60,30 +60,32 @@ class NotifyDelegate(DefaultDelegate):
 scanner = Scanner().withDelegate(ScanDelegate())
 try:
 	devices = scanner.scan(10.0)
+	cnt = 0
+	dev_str=''
+
+	GLOB.recreate_section(configFileNM, 'DEVICE')
+	for dev in devices:
+		#print("Device %s (%s), RSSI=%d dB" % (dev.addr, dev.addrType, dev.rssi))
+		for (adtype, desc, value) in dev.getScanData():
+			# Check iBeacon UUID
+			# 255 is manufacturer data (1  is Flags, 9 is Name)
+			#print("  (AD Type=%d) %s = %s" % (adtype, desc, value))
+			if adtype == 2 and TARGET_UUID in value:
+				cnt = cnt+1
+				target_dev = dev
+				print("%d) Device %s (%s), RSSI=%d dB" % (cnt, dev.addr, dev.addrType, dev.rssi))
+				dev_str = "sensor%02d" % (cnt)			
+				GLOB.set_key_value(configFileNM, 'DEVICE', dev_str, dev.addr)
+
+	GLOB.set_key_value(configFileNM, 'FLOWERCARE', 'sensor_cnt', "%d" %cnt)
+
+	if cnt > 0 :
+		print('식물 정보 감지 센서 %d개를 찾았습니다. ' % cnt)
+	else :
+		print('식물 정보 센서를 감지 하지 못하였습니다.')
+		print('제어기와 너무 멀리 떨어지거나 건전지 교체 시기인지 확인하여 주세요')
+  
 except Exception as e:
     print(f"An error occurred: {e}")    
 
-cnt = 0
-dev_str=''
 
-GLOB.recreate_section(configFileNM, 'DEVICE')
-for dev in devices:
-	#print("Device %s (%s), RSSI=%d dB" % (dev.addr, dev.addrType, dev.rssi))
-	for (adtype, desc, value) in dev.getScanData():
-		# Check iBeacon UUID
-		# 255 is manufacturer data (1  is Flags, 9 is Name)
-		#print("  (AD Type=%d) %s = %s" % (adtype, desc, value))
-		if adtype == 2 and TARGET_UUID in value:
-			cnt = cnt+1
-			target_dev = dev
-			print("%d) Device %s (%s), RSSI=%d dB" % (cnt, dev.addr, dev.addrType, dev.rssi))
-			dev_str = "sensor%02d" % (cnt)			
-			GLOB.set_key_value(configFileNM, 'DEVICE', dev_str, dev.addr)
-
-GLOB.set_key_value(configFileNM, 'FLOWERCARE', 'sensor_cnt', "%d" %cnt)
-
-if cnt > 0 :
-	print('식물 정보 감지 센서 %d개를 찾았습니다. ' % cnt)
-else :
-	print('식물 정보 센서를 감지 하지 못하였습니다.')
-	print('제어기와 너무 멀리 떨어지거나 건전지 교체 시기인지 확인하여 주세요')
