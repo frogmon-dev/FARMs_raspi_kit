@@ -41,7 +41,7 @@ class FLOWERCARE:
         self.confUpdate()
         
     # Identifier cleanup
-    def clean_identifier(name):
+    def clean_identifier(self, name):
         clean = name.strip()
         for this, that in [[' ', '-'], ['ä', 'ae'], ['Ä', 'Ae'], ['ö', 'oe'], ['Ö', 'Oe'], ['ü', 'ue'], ['Ü', 'Ue'], ['ß', 'ss']]:
             clean = clean.replace(this, that)
