@@ -65,8 +65,8 @@ class FLOWERCARE:
             else:
                 name_pretty, location_pretty = name, ''
                 
-            name_clean = clean_identifier(name_pretty)
-            location_clean = clean_identifier(location_pretty)
+            name_clean = self.clean_identifier(name_pretty)
+            location_clean = self.clean_identifier(location_pretty)
 
             flora = dict()
             print('Adding sensor to device list and testing connection ...')
