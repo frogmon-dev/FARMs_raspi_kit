@@ -148,4 +148,3 @@ class GLOB:
         
         print(f"Set '{key}' to '{value}' in section '{section}' of '{filename}'.")
         
-    

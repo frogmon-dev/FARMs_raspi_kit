@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*- 
-
+import os
 from tendo import singleton
 try:
 	me = singleton.SingleInstance()
@@ -11,13 +11,18 @@ except :
 from bluepy.btle import Scanner, DefaultDelegate
 from frogmon.uGlobal   import GLOB
 
-configFileNM = '/home/pi/FARMs_raspi_kit/bin/setup.ini'
+def get_current_path():
+    # 현재 스크립트 파일의 위치를 기준으로 bin 디렉토리 경로를 설정
+    return os.path.dirname(os.path.abspath(__file__))
+
+configFileNM = get_current_path() + '../bin/setup.ini'
+
 
 print('')
 print('--------------------------------------------------')
 print('**  Welcome to FROGMON corp.')
 print("**  Let's make it together")
-print("**  Setup file (%s)" % (configFileNM))
+print("**  user id (%s)" % (GLOB.get_ini_value(configFileNM, 'SETUP', 'user_id', 'test')))
 print('--------------------------------------------------')
 print('')
 
