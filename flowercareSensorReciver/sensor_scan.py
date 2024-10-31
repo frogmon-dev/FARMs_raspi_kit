@@ -64,11 +64,11 @@ try:
 	dev_str=''
 	GLOB.recreate_section(configFileNM, 'DEVICE')
 	for dev in devices:
-		#print("Device %s (%s), RSSI=%d dB" % (dev.addr, dev.addrType, dev.rssi))
+		print("Device %s (%s), RSSI=%d dB" % (dev.addr, dev.addrType, dev.rssi))
 		for (adtype, desc, value) in dev.getScanData():
 			# Check iBeacon UUID
 			# 255 is manufacturer data (1  is Flags, 9 is Name)
-			#print("  (AD Type=%d) %s = %s" % (adtype, desc, value))
+			print("  (AD Type=%d) %s = %s" % (adtype, desc, value))
 			if adtype == 2 and TARGET_UUID in value:
 				cnt = cnt+1
 				target_dev = dev
