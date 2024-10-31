@@ -8,7 +8,7 @@ except :
 	exit()
 
 #프로그램 시작
-from bluepy.btle import Scanner, DefaultDelegate
+from bluepy.btle import Scanner, DefaultDelegate, UUID, Peripheral
 from frogmon.uGlobal   import GLOB
 
 def get_current_path():
