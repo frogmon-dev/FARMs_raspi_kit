@@ -4,7 +4,7 @@
 crontab -r
 echo "Crontab contents have been deleted."
 
-sleep(5)
+sleep 5
 
 sudo python sensor_scan.py
 
