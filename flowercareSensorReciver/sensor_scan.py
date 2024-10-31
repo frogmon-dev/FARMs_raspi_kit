@@ -58,7 +58,7 @@ class NotifyDelegate(DefaultDelegate):
 #############################################
 scanner = Scanner().withDelegate(ScanDelegate())
 try:
-	devices = scanner.scan(10.0)
+	devices = scanner.scan(5.0)
  
 	cnt = 0
 	dev_str=''
