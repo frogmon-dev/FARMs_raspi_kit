@@ -147,3 +147,14 @@ class GLOB:
         
         print(f"Set '{key}' to '{value}' in section '{section}' of '{filename}'.")
         
+    def get_key_value_list(filename, section):
+        config = configparser.ConfigParser()
+        config.read(filename, encoding='utf-8')  # 파일 읽기
+        
+        # 섹션이 존재하는지 확인
+        if section not in config:
+            raise ValueError(f"Section '{section}' not found in the file '{filename}'")
+        
+        # 키-값 쌍을 리스트로 반환
+        key_value_list = [[key, value] for key, value in config.items(section)]
+        return key_value_list

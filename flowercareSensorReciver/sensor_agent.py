@@ -59,7 +59,7 @@ class FLOWERCARE:
         
         
     def chkSensor(self):
-        for [name, mac] in GLOB.get_ini_value(configFileNM, 'DEVICE'):
+        for [name, mac] in GLOB.get_key_value_list(configFileNM, 'DEVICE'):
             if '@' in name:
                 name_pretty, location_pretty = name.split('@')
             else:
