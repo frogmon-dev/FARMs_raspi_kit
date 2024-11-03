@@ -79,7 +79,7 @@ def print_loop():
         if raw_data:
             sensor_data = parse_sensor_data(raw_data)
             if sensor_data:
-                print("센서 데이터:")                
+                print("센서 데이터:")
                 print(sensor_data)
                 
                 GLOB.save_sensor_data_to_csv(csvFileName + currentDate + '.csv', sensor_data)                    
