@@ -50,7 +50,7 @@ class FLOWERCARE:
 	
         
     def confUpdate(self):
-        self.used_adapter          = GLOB.get_ini_value(configFileNM, 'FLOWERCARE', 'adapter', 'hci0')
+        self.used_adapter          = 'hci0'
         self.reporting_mode        = 'json'
         self.daemon_enabled        = True
         self.default_base_topic    = 'miflora'
