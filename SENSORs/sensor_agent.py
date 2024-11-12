@@ -6,6 +6,7 @@ from datetime import datetime
 import Adafruit_DHT
 
 from frogmon.uGlobal     import GLOB
+import frogmon.uOled as uOled
 
 # 센서 타입과 연결 핀을 설정합니다.
 dht11_sensor = Adafruit_DHT.DHT11
@@ -26,6 +27,8 @@ mqttUrl  = GLOB.get_ini_value(setupFileName, 'MQTT', 'url', 'frogmon.synology.me
 mqttPort = int(GLOB.get_ini_value(setupFileName, 'MQTT', 'port', '8359'))
 pubTopic = GLOB.get_ini_value(setupFileName, 'MQTT', 'pub_topic', 'test')+userId+'/'+deviceId
 
+oled = uOled(rotate=0)
+oled.display_test(10, 10, "Hello OLED!", 12)
 
 # 요청 패킷 (7-in-1 센서)
 p7in1_request = [0x01, 0x03, 0x00, 0x00, 0x00, 0x07, 0x04, 0x08]
