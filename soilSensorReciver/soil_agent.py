@@ -45,7 +45,7 @@ def get_sensor_data():
 
 # 센서 데이터 해석
 def parse_sensor_data(data):
-    print('incomming dat:' + data)
+    print('incomming dat:', ' '.join(format(byte, '02X') for byte in data))
     if len(data) < 19:
         print("데이터가 부족합니다.")
         return None
