@@ -19,7 +19,6 @@ commands = {
 def send_modbus_command(command):
     # Modbus 명령을 전송
     client.write_registers(0, command)
-    client.flush()
 
     # 응답 읽기
     response = client.read_holding_registers(0, 7)  # 예상 응답 길이 = 7 바이트
