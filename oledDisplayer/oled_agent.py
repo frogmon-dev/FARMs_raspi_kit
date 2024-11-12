@@ -4,7 +4,7 @@ from luma.oled.device import ssd1306, ssd1325, ssd1331, sh1106
 import time
 
 serial = i2c(port=1, address=0x3C)
-device = ssd1306(serial, rotate=0)
+device = ssd1306(serial, rotate=1)
 
 # Box and text rendered in portrait mode
 with canvas(device) as draw:
