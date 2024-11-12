@@ -93,13 +93,13 @@ class UOled:
             draw.text((45, 35), f"{data['PH']}", font=value_font, fill="white")
             
             draw.text((5, 50), "N:", font=label_font, fill="white")
-            draw.text((20, 50), f"{data['nitrogen']}", font=value_font, fill="white")
+            draw.text((25, 50), f"{data['nitrogen']}", font=value_font, fill="white")
             
             draw.text((45, 50), "P:", font=label_font, fill="white")
-            draw.text((60, 50), f"{data['phosphorus']}", font=value_font, fill="white")
+            draw.text((65, 50), f"{data['phosphorus']}", font=value_font, fill="white")
             
-            draw.text((75, 50), "K:", font=label_font, fill="white")
-            draw.text((85, 50), f"{data['potassium']}", font=value_font, fill="white")
+            draw.text((90, 50), "K:", font=label_font, fill="white")
+            draw.text((105, 50), f"{data['potassium']}", font=value_font, fill="white")
             
 
             # 추가 데이터도 필요한 경우 배치 가능
