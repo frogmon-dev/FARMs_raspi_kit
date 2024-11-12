@@ -1,20 +1,5 @@
 import time
-import serial
-import RPi.GPIO as GPIO
 from pymodbus.client import ModbusSerialClient  # 최신 구조에 맞게 수정
-
-# RS-485 제어 핀 설정 (Raspberry Pi의 GPIO 핀)
-DE_PIN = 6
-RE_PIN = 7
-
-# GPIO 설정
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(DE_PIN, GPIO.OUT)
-GPIO.setup(RE_PIN, GPIO.OUT)
-
-# 초기 송신 모드 비활성화
-GPIO.output(DE_PIN, GPIO.LOW)
-GPIO.output(RE_PIN, GPIO.LOW)
 
 # Modbus Serial Client 설정
 modbus_port = '/dev/ttyAMA0'  # 라즈베리 파이의 UART 포트
@@ -31,24 +16,10 @@ commands = {
     'potassium': [0x01, 0x03, 0x00, 0x20, 0x00, 0x01, 0x85, 0xc0],
 }
 
-def enable_tx_mode():
-    GPIO.output(DE_PIN, GPIO.HIGH)
-    GPIO.output(RE_PIN, GPIO.HIGH)
-
-def enable_rx_mode():
-    GPIO.output(DE_PIN, GPIO.LOW)
-    GPIO.output(RE_PIN, GPIO.LOW)
-
 def send_modbus_command(command):
-    enable_tx_mode()  # 송신 모드로 전환
-    time.sleep(0.01)
-
     # Modbus 명령을 전송
     client.write_registers(0, command)
     client.flush()
-
-    enable_rx_mode()  # 수신 모드로 전환
-    time.sleep(0.2)   # 응답 대기 시간
 
     # 응답 읽기
     response = client.read_holding_registers(0, 7)  # 예상 응답 길이 = 7 바이트
@@ -115,5 +86,4 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print("프로그램 종료")
     finally:
-        GPIO.cleanup()
         client.close()
