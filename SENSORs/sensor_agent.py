@@ -9,7 +9,7 @@ from frogmon.uGlobal     import GLOB
 
 # 센서 타입과 연결 핀을 설정합니다.
 dht11_sensor = Adafruit_DHT.DHT11
-dht11_pin = 2  # DHT11 센서의 데이터 핀이 연결된 GPIO 핀 번호
+dht11_pin = 10  # DHT11 센서의 데이터 핀이 연결된 GPIO 핀 번호
 
 # Modbus 설정
 modbus_port = '/dev/ttyAMA0'  # 라즈베리 파이에 연결된 Modbus 포트
