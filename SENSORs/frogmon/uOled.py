@@ -84,13 +84,23 @@ class UOled:
 
             # 위치 설정 및 데이터 표시
             draw.text((5, 5), "Temp:", font=label_font, fill="white")
-            draw.text((45, 5), f"{data['temperature']} C", font=value_font, fill="white")
+            draw.text((45, 5), f"{data['out_temperature']} C", font=value_font, fill="white")
 
             draw.text((5, 20), "Humidity:", font=label_font, fill="white")
-            draw.text((65, 20), f"{data['humidity']} %", font=value_font, fill="white")
+            draw.text((65, 20), f"{data['out_humidity']} %", font=value_font, fill="white")
 
             draw.text((5, 35), "PH:", font=label_font, fill="white")
             draw.text((45, 35), f"{data['PH']}", font=value_font, fill="white")
+            
+            draw.text((5, 50), "N:", font=label_font, fill="white")
+            draw.text((20, 50), f"{data['nitrogen']}", font=value_font, fill="white")
+            
+            draw.text((30, 50), "P:", font=label_font, fill="white")
+            draw.text((45, 50), f"{data['phosphorus']}", font=value_font, fill="white")
+            
+            draw.text((60, 50), "K:", font=label_font, fill="white")
+            draw.text((65, 50), f"{data['potassium']}", font=value_font, fill="white")
+            
 
             # 추가 데이터도 필요한 경우 배치 가능
             # draw.text((x, y), "Label", font=label_font, fill="white")
