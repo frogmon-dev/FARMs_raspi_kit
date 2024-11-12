@@ -4,11 +4,9 @@
 import os
 
 from datetime    import datetime, timedelta
-from collections import OrderedDict
 
 class COM:
 	gSetupFile = 'setup.ini'
-	gControlFile = 'control.ini'
 	
 	gProcessNM = os.path.abspath( __file__ )
 
