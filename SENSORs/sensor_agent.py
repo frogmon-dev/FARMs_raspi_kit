@@ -28,7 +28,7 @@ mqttPort = int(GLOB.get_ini_value(setupFileName, 'MQTT', 'port', '8359'))
 pubTopic = GLOB.get_ini_value(setupFileName, 'MQTT', 'pub_topic', 'test')+userId+'/'+deviceId
 
 oled = UOled(rotate=0)
-oled.display_test(10, 10, "Hello OLED!", 12)
+oled.display_test(10, 10, "Hello OLED!", 10)
 
 # 요청 패킷 (7-in-1 센서)
 p7in1_request = [0x01, 0x03, 0x00, 0x00, 0x00, 0x07, 0x04, 0x08]
@@ -106,6 +106,8 @@ def print_loop():
 
                 print("센서 데이터:")
                 print(sensor_data)
+                
+                oled.display_sensor_data(sensor_data)
                 
                 GLOB.save_sensor_data_to_csv(csvFileName + currentDate + '.csv', sensor_data)                    
                 print("센서 데이터가 저장되었습니다.")

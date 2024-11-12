@@ -60,3 +60,38 @@ class UOled:
             for x, y, text, size in self.display_content:
                 font = ImageFont.truetype(self.default_font_path, size)
                 draw.text((x, y), text, font=font, fill="white")
+
+    def display_sensor_data(self, data):
+        """
+        센서 데이터를 OLED에 예쁘게 표시하는 함수
+        :param data: 센서 데이터 딕셔너리 (예: {"temperature": 22.5, "humidity": 60.0, ...})
+        """
+        if not self.border_drawn:
+            self.draw_border()
+
+        with canvas(self.device) as draw:
+            # 테두리 유지
+            padding = 2
+            draw.rectangle(
+                (padding, padding, self.device.width - padding, self.device.height - padding),
+                outline="white",
+                fill="black"
+            )
+
+            # 폰트 설정
+            label_font = ImageFont.truetype(self.default_font_path, 10)  # 작은 폰트
+            value_font = ImageFont.truetype(self.default_font_path, 12)  # 큰 폰트
+
+            # 위치 설정 및 데이터 표시
+            draw.text((5, 5), "Temp:", font=label_font, fill="white")
+            draw.text((45, 5), f"{data['temperature']} C", font=value_font, fill="white")
+
+            draw.text((5, 20), "Humidity:", font=label_font, fill="white")
+            draw.text((65, 20), f"{data['humidity']} %", font=value_font, fill="white")
+
+            draw.text((5, 35), "PH:", font=label_font, fill="white")
+            draw.text((45, 35), f"{data['PH']}", font=value_font, fill="white")
+
+            # 추가 데이터도 필요한 경우 배치 가능
+            # draw.text((x, y), "Label", font=label_font, fill="white")
+            # draw.text((x_offset, y), f"{value}", font=value_font, fill="white")
