@@ -36,8 +36,3 @@ class UOled:
         # 텍스트를 화면에 출력
         with canvas(self.device) as draw:
             draw.text((x, y), text, font=font, fill="white")
-
-# 사용 예시
-if __name__ == "__main__":
-    oled = UOled(rotate=1)  # 예를 들어, 회전 90도 설정
-    oled.display_test(10, 10, "Hello OLED!", 12)  # (10,10) 위치에 크기 12로 텍스트 출력
