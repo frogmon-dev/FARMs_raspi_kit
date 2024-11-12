@@ -1,7 +1,7 @@
 import time
 import serial
 import RPi.GPIO as GPIO
-from pymodbus.client.sync import ModbusSerialClient as ModbusClient
+from pymodbus.client import ModbusSerialClient  # 최신 구조에 맞게 수정
 
 # RS-485 제어 핀 설정 (Raspberry Pi의 GPIO 핀)
 DE_PIN = 6
@@ -18,7 +18,7 @@ GPIO.output(RE_PIN, GPIO.LOW)
 
 # Modbus Serial Client 설정
 modbus_port = '/dev/ttyAMA0'  # 라즈베리 파이의 UART 포트
-client = ModbusClient(method='rtu', port=modbus_port, baudrate=9600, timeout=1)
+client = ModbusSerialClient(method='rtu', port=modbus_port, baudrate=9600, timeout=1)
 
 # Modbus 명령어 설정 (아두이노 코드에서 사용한 명령어와 동일하게 설정)
 commands = {
