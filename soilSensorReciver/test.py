@@ -54,6 +54,8 @@ def parse_sensor_data(data):
     # 센서 값 추출
     temperature = struct.unpack('>h', data[3:5])[0] / 10.0
     humidity = struct.unpack('>H', data[5:7])[0] / 10.0
+    conductivity =  struct.unpack('>H', data[7:9])[0]
+    ph =  struct.unpack('>H', data[9:11])[0] / 100.0 
     
     # humidity = (data[3] << 8 | data[4]) / 10.0
     # temperature = (data[5] << 8 | data[6]) / 10.0
@@ -62,8 +64,6 @@ def parse_sensor_data(data):
     # nitrogen = data[11] << 8 | data[12]
     # phosphorus = data[13] << 8 | data[14]
     # potassium = data[15] << 8 | data[16]
-    conductivity = 0
-    ph = 0
     nitrogen = 0
     phosphorus = 0
     potassium = 0
