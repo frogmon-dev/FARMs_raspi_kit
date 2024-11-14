@@ -89,14 +89,17 @@ class UOled:
             draw.text((5, 20), "Humidity:", font=label_font, fill="white")
             draw.text((65, 20), f"{data['humidity']}/{data['out_humidity']} %", font=value_font, fill="white")
 
-            draw.text((5, 35), "PH:", font=label_font, fill="white")
-            draw.text((45, 35), f"{data['PH']}", font=value_font, fill="white")
+            draw.text((5, 35), "COND:", font=label_font, fill="white")
+            draw.text((25, 35), f"{data['conductivity']}", font=value_font, fill="white")
+            
+            draw.text((60, 35), "PH:", font=label_font, fill="white")
+            draw.text((90, 35), f"{data['PH']}", font=value_font, fill="white")
             
             draw.text((5, 50), "N:", font=label_font, fill="white")
             draw.text((25, 50), f"{data['nitrogen']}", font=value_font, fill="white")
             
             draw.text((45, 50), "P:", font=label_font, fill="white")
-            draw.text((65, 50), f"{data['phosphorus']}", font=value_font, fill="white")
+            draw.text((60, 50), f"{data['phosphorus']}", font=value_font, fill="white")
             
             draw.text((90, 50), "K:", font=label_font, fill="white")
             draw.text((105, 50), f"{data['potassium']}", font=value_font, fill="white")
