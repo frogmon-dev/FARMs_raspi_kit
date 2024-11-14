@@ -25,7 +25,7 @@ pubTopic = GLOB.get_ini_value(setupFileName, 'MQTT', 'pub_topic', 'test') + user
 def get_sensor_data():
     if client.connect():
         # Modbus 데이터를 요청하여 7개의 레지스터 값 읽기
-        response = client.read_holding_registers(0x0000, 7, unit=1)
+        response = client.read_holding_registers(0x0000, 7)
         
         if not response.isError():
             # 읽은 데이터를 배열에 저장
