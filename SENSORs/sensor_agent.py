@@ -4,6 +4,7 @@ from pymodbus.client import ModbusSerialClient
 import RPi.GPIO as GPIO
 from datetime import datetime
 import Adafruit_DHT
+import struct
 
 from frogmon.uGlobal     import GLOB
 from frogmon.uOled       import UOled
@@ -70,13 +71,13 @@ def parse_sensor_data(data):
         return None
 
     # 센서 값 추출
-    humidity = (data[3] << 8 | data[4]) / 10.0
-    temperature = (data[5] << 8 | data[6]) / 10.0
-    conductivity = data[7] << 8 | data[8]
-    ph = (data[9] << 8 | data[10]) / 10.0
-    nitrogen = data[11] << 8 | data[12]
-    phosphorus = data[13] << 8 | data[14]
-    potassium = data[15] << 8 | data[16]
+    temperature = struct.unpack('>h', data[3:5])[0] / 10.0
+    humidity = struct.unpack('>H', data[5:7])[0] / 10.0
+    conductivity =  struct.unpack('>H', data[7:9])[0]
+    ph =  struct.unpack('>H', data[9:11])[0] / 100.0 
+    nitrogen = struct.unpack('>H', data[11:13])[0] 
+    phosphorus = struct.unpack('>H', data[13:15])[0]
+    potassium = struct.unpack('>H', data[15:17])[0]  
 
     sensor_data = {
         "humidity": humidity,
