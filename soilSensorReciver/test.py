@@ -62,6 +62,11 @@ def parse_sensor_data(data):
     # nitrogen = data[11] << 8 | data[12]
     # phosphorus = data[13] << 8 | data[14]
     # potassium = data[15] << 8 | data[16]
+    conductivity = 0
+    ph = 0
+    nitrogen = 0
+    phosphorus = 0
+    potassium = 0
     
     sensor_data = {
         "humidity": humidity,
