@@ -92,7 +92,7 @@ class UOled:
             draw.text((5, 35), "Cond:", font=label_font, fill="white")
             draw.text((45, 35), f"{data['conductivity']}", font=value_font, fill="white")
             
-            draw.text((60, 35), "PH:", font=label_font, fill="white")
+            draw.text((70, 35), "PH:", font=label_font, fill="white")
             draw.text((90, 35), f"{data['PH']}", font=value_font, fill="white")
             
             draw.text((5, 50), "N:", font=label_font, fill="white")
