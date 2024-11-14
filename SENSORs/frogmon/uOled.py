@@ -84,10 +84,10 @@ class UOled:
 
             # 위치 설정 및 데이터 표시
             draw.text((5, 5), "Temp:", font=label_font, fill="white")
-            draw.text((45, 5), f"{data['out_temperature']} C", font=value_font, fill="white")
+            draw.text((45, 5), f"{data['temperature']}/{data['out_temperature']} C", font=value_font, fill="white")
 
             draw.text((5, 20), "Humidity:", font=label_font, fill="white")
-            draw.text((65, 20), f"{data['out_humidity']} %", font=value_font, fill="white")
+            draw.text((65, 20), f"{data['humidity']}/{data['out_humidity']} %", font=value_font, fill="white")
 
             draw.text((5, 35), "PH:", font=label_font, fill="white")
             draw.text((45, 35), f"{data['PH']}", font=value_font, fill="white")
