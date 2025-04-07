@@ -8,6 +8,7 @@ import socket
 import csv
 import configparser
 import paho.mqtt.client as mqtt
+import time
 
 
 #from unidecode       import unidecode
@@ -44,6 +45,64 @@ class GLOB:
             return defult
         
         return None
+    
+    def set_ini_value(filename, section, key, value):
+        """
+        INI 파일의 특정 section과 key에 값을 설정하는 함수.
+        section이 없으면 새로 생성하고, key가 없으면 새로 추가합니다.
+
+        Args:
+        - filename (str): INI 파일의 이름.
+        - section (str): 설정할 섹션 이름.
+        - key (str): 설정할 키 이름.
+        - value (str): 설정할 값.
+
+        Returns:
+        - bool: 성공하면 True, 실패하면 False.
+        """
+        try:
+            config = configparser.ConfigParser()
+            
+            # 파일이 존재하면 읽기
+            if os.path.exists(filename):
+                config.read(filename)
+            
+            # section이 없으면 생성
+            if not config.has_section(section):
+                config.add_section(section)
+            
+            # key와 value 설정
+            config.set(section, key, str(value))
+            
+            # 파일 저장
+            with open(filename, 'w') as f:
+                config.write(f)
+            
+            return True
+            
+        except Exception as e:
+            print(f"INI 파일 설정 중 오류 발생: {e}")
+            return False
+    
+    def get_ini_section(filename, section):
+        """
+        INI 파일에서 특정 section을 반환하는 함수.
+
+        Args:
+        - filename (str): INI 파일의 이름.  
+        - section (str): 찾을 섹션 이름.
+
+        Returns:
+        - dict: 해당 section의 모든 키와 값이 포함된 딕셔너리.
+        """
+        config = configparser.ConfigParser()    
+        config.read(filename)
+        
+        if config.has_section(section):
+            return config.items(section)
+        else:
+            return None 
+    
     
     def save_sensor_data_to_csv(filename, sensor_data):
         """
@@ -97,3 +156,59 @@ class GLOB:
         
         # 연결 종료
         client.disconnect()
+
+    def mqtt_subscribe(mqttUrl, mqttPort, subTopic, on_message, client_id=None, max_retries=5, retry_delay=5):
+        """
+        MQTT 서버에 연결하고 지정된 토픽을 구독하는 함수.
+        메시지 수신 시 on_message 콜백 함수를 호출합니다.
+        연결 실패 시 재시도합니다.
+
+        Args:
+        - mqttUrl (str): MQTT 서버의 URL 또는 IP 주소.
+        - mqttPort (int): MQTT 서버의 포트 번호.
+        - subTopic (str): 구독할 토픽 이름.
+        - on_message (function): 메시지 수신 시 호출할 콜백 함수.
+        - client_id (str, optional): MQTT 클라이언트 ID. 기본값은 None.
+        - max_retries (int, optional): 최대 재시도 횟수. 기본값은 5.
+        - retry_delay (int, optional): 재시도 간격(초). 기본값은 5.
+
+        Returns:
+        - mqtt.Client: MQTT 클라이언트 객체.
+        """
+        retry_count = 0
+        last_error = None
+
+        while retry_count < max_retries:
+            try:
+                # MQTT 클라이언트 생성
+                client = mqtt.Client(client_id=client_id)
+                
+                # 콜백 함수 설정
+                client.on_message = on_message
+                
+                # MQTT 서버에 연결
+                client.connect(mqttUrl, mqttPort, 60)
+                print(f"MQTT 서버 연결 성공: {mqttUrl}:{mqttPort}")
+                
+                # 토픽 구독
+                client.subscribe(subTopic)
+                print(f"토픽 구독 성공: {subTopic}")
+                
+                # 메시지 수신 루프 시작
+                client.loop_start()
+                print("메시지 수신 대기 중...")
+                
+                return client
+                
+            except Exception as e:
+                last_error = e
+                retry_count += 1
+                print(f"MQTT 연결 시도 {retry_count}/{max_retries} 실패: {e}")
+                
+                if retry_count < max_retries:
+                    print(f"{retry_delay}초 후 재시도합니다...")
+                    time.sleep(retry_delay)
+                else:
+                    print(f"최대 재시도 횟수({max_retries}회)를 초과했습니다.")
+                    print(f"마지막 오류: {last_error}")
+                    return None
